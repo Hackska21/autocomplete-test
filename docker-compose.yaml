@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  autocomplete:
+    build:
+      context: ./
+      args:
+        - ENVIRONMENT=local
+    image: "autocomplete:dev"
+    container_name: autocomplete
+    command: >
+      sh -c "python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ".:/src"
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - dev-net
+
+  db:
+    image: 'postgres:14.2'
+    restart: "no"
+    container_name: database
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: autocomplete
+      PGDATA: '/var/lib/postgresql/data/pgdata'
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    ports:
+      - "8001:5432"
+    networks:
+      dev-net:
+
+networks:
+  dev-net:
+    name: dev-net
+
