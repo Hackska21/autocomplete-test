@@ -8,7 +8,7 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from search_app.views import SearchViewSet
+from search_app.api.drf.views import SearchViewSet
 
 # Create a router to generate automatically all paths on de viewset
 router = routers.SimpleRouter()

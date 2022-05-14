@@ -84,3 +84,21 @@ python manage.py migrate
 ```shell
 python manage.py runserver
 ```
+
+
+# Relevant Files
+
+## Search engine
+
+search_app.services.autocomplete_engine.ScoreService
+
+
+In The search engine its possible change precision of the location score changing env 
+DISTANCE_NORMALIZING_SIZE
+
+Increasing this value will decrease the precision  of location based score, increasing its final score.
+
+min value 1 
+## Filters 
+
+search_app.api.drf.filters.CustomSearchFilter
